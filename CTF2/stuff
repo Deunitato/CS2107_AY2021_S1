@@ -1,0 +1,64 @@
+someone@DESKTOP-OO3AA1S:/mnt/c/Users/someone/OneDrive/Desktop/Code/CS2107_AY2021_S1/CTF2/UnlockMe$ gdb --args ./unlockme 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+GNU gdb (Ubuntu 9.2-0ubuntu1~20.04) 9.2
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./unlockme...
+(gdb) br *0x0804941c
+Breakpoint 1 at 0x804941c: file unlockme.c, line 51.
+(gdb) br *0x0804941b
+Breakpoint 2 at 0x804941b: file unlockme.c, line 50.
+(gdb) br main
+Breakpoint 3 at 0x8049277: file unlockme.c, line 15.
+(gdb) run
+Starting program: /mnt/c/Users/Nyant/OneDrive/Desktop/Code/CS2107_AY2021_S1/CTF2/UnlockMe/unlockme 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+
+Breakpoint 3, main (argc=2, argv=0xffffce74) at unlockme.c:15
+15        setvbuf(stdin,  NULL, _IONBF, 0);   // Switch off I/O buffering
+(gdb) continue
+Continuing.
+Enter the secret value to unlock the flag => 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+
+Breakpoint 1, main (argc=2, argv=0xffffce74) at unlockme.c:51
+51          call_function = &give_flag;  // give user flag!
+(gdb) continue
+Continuing.
+
+Unable to open file!
+[Inferior 1 (process 21908) exited with code 01]
+(gdb) run
+Starting program: /mnt/c/Users/Nyant/OneDrive/Desktop/Code/CS2107_AY2021_S1/CTF2/UnlockMe/unlockme 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+
+Breakpoint 3, main (argc=2, argv=0xffffce74) at unlockme.c:15
+15        setvbuf(stdin,  NULL, _IONBF, 0);   // Switch off I/O buffering
+(gdb) continue
+Continuing.
+Enter the secret value to unlock the flag => 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+
+Breakpoint 1, main (argc=2, argv=0xffffce74) at unlockme.c:51
+51          call_function = &give_flag;  // give user flag!
+(gdb) info frame
+Stack level 0, frame at 0xffffcde0:
+ eip = 0x804941c in main (unlockme.c:51); saved eip = 0xf7deeee5
+ source language c.
+ Arglist at 0xffffcdd8, args: argc=2, argv=0xffffce74
+ Locals at 0xffffcdd8, Previous frame's sp is 0xffffcde0
+ Saved registers:
+  ebx at 0xffffcdd4, ebp at 0xffffcdd8, eip at 0xffffcddc
+(gdb) x buf
+No symbol "buf" in current context.
+(gdb) x give_flag
+0x80494c3 <give_flag>:  0x53e58955
+(gdb) x give_error
+0x80494f8 <give_error>: 0x53e58955
